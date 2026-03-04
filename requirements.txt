@@ -1,0 +1,5 @@
+Flask==2.3.2
+Flask-SocketIO==6.3.2
+pynput==1.7.7
+qrcode==7.3
+python-socketio==5.8.0
