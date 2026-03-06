@@ -1,8 +1,22 @@
+# PyInstaller folders
 dist/
 build/
+*.spec
+
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.DS_Store
+
+# macOS files
+.DS_Store
+
+# Virtual environments
+venv310/
+env/
+.venv/
+
+# Compiled app bundles
 main.app
+*.exe
