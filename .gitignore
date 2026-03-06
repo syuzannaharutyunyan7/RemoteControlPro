@@ -1,6 +1,8 @@
+dist/
+build/
 __pycache__/
 *.pyc
-venv310/
-venv/
-.env
-.DS_Store
+*.pyo
+*.pyd
+*.DS_Store
+main.app

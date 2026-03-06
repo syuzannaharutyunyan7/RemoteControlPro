@@ -1,18 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remote Mouse</title>
-    <style>
-        body { margin:0; background:#1e1e1e; color:white; font-family:Arial; display:flex; flex-direction:column; height:100vh; }
-        header { text-align:center; padding:15px; background:#111; font-size:20px; }
-        #touchpad { flex:1; background:#2e2e2e; margin:10px; border-radius:15px; touch-action:none; }
-        .buttons { display:flex; gap:10px; padding:10px; }
-        button { flex:1; padding:15px; font-size:16px; border:none; border-radius:10px; background:#4CAF50; color:white; }
-        input { margin:10px; padding:10px; border-radius:10px; border:none; font-size:16px; }
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remote Mouse</title>
+<link rel="stylesheet" href="/static/style.css">
 </head>
-
 <body>
 
 <header>🖱 Remote Mouse Controller</header>
@@ -20,53 +12,27 @@
 <div id="touchpad"></div>
 
 <div class="buttons">
-    <button onclick="leftClick()">Left Click</button>
-    <button onclick="rightClick()">Right Click</button>
+    <button onclick="sendClick('left')">Left Click</button>
+    <button onclick="sendClick('right')">Right Click</button>
 </div>
 
-<input id="keyboard" placeholder="Type here..." autofocus>
+<input id="keyboardInput" placeholder="Type text here...">
 
-<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-<script>
-const socket = io();
+<div class="keyboard">
+    <button onclick="sendKey('esc')">ESC</button>
+    <button onclick="sendKey('tab')">TAB</button>
+    <button onclick="sendKey('enter')">ENTER</button>
+    <button onclick="sendKey('space')">SPACE</button>
 
-const touchpad = document.getElementById("touchpad");
-const keyboard = document.getElementById("keyboard");
+    <button onclick="sendKey('up')">↑</button>
+    <button onclick="sendKey('left')">←</button>
+    <button onclick="sendKey('down')">↓</button>
+    <button onclick="sendKey('right')">→</button>
 
-let lastX = 0;
-let lastY = 0;
+    <button onclick="sendKey('backspace')">⌫</button>
+</div>
 
-// ------------------ TOUCHPAD ------------------
-touchpad.addEventListener("touchstart", e => {
-    const touch = e.touches[0];
-    lastX = touch.clientX;
-    lastY = touch.clientY;
-});
-
-touchpad.addEventListener("touchmove", e => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    let dx = touch.clientX - lastX;
-    let dy = touch.clientY - lastY;
-    socket.emit("move_cursor", { dx: dx, dy: dy });
-    lastX = touch.clientX;
-    lastY = touch.clientY;
-});
-
-// ------------------ BUTTONS ------------------
-function leftClick() { socket.emit("click", { button: "left" }); }
-function rightClick() { socket.emit("click", { button: "right" }); }
-
-// ------------------ KEYBOARD ------------------
-keyboard.addEventListener("keydown", (e) => {
-    if (e.key === "Backspace") {
-        socket.emit("type_text", { key: "backspace" });
-    } else if (e.key.length === 1) {
-        socket.emit("type_text", { key: e.key });
-    }
-    e.preventDefault(); // prevent typing in the input itself
-});
-</script>
-
+<script src="/static/socket.io.min.js"></script>
+<script src="/static/script.js"></script>
 </body>
 </html>
