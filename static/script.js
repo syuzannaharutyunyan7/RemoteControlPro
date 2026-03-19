@@ -63,6 +63,7 @@ function sendKey(key){
     if(authorized) socket.emit("type_text",{key:key});
 }
 
+// Keyboard input field
 const keyboardInput = document.getElementById("keyboardInput");
 keyboardInput.addEventListener("keydown", e => {
     if(!authorized) return;
