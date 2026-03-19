@@ -6,8 +6,6 @@ import socket
 import qrcode
 import os
 import random
-import tkinter as tk
-import threading
 
 # ---------------- CONFIG ----------------
 app = Flask(__name__)
@@ -37,7 +35,7 @@ def get_current_pin():
         return f.read().strip()
 
 def change_pin():
-    new_pin = input("Enter new PIN: ").strip()
+    new_pin = input("Enter new PIN (at least 4 digits): ").strip()
     if len(new_pin) < 4:
         print("PIN must be at least 4 digits")
         return
@@ -59,7 +57,7 @@ def remote():
 def authenticate(data):
     pin = data.get("pin", "")
     sid = request.sid
-    current_pin = get_current_pin()  # always read latest PIN
+    current_pin = get_current_pin()
     if pin == current_pin:
         authorized_clients.add(sid)
         socketio.emit("auth_response", {"status": "success"}, to=sid)
@@ -135,34 +133,15 @@ def show_qr():
     qr = qrcode.make(url)
     qr.show()
 
-# ---------------- GUI ----------------
-def launch_gui():
-    window = tk.Tk()
-    window.title("Remote Mouse Server")
-    window.geometry("300x250")
-
-    label = tk.Label(window, text="Remote Mouse Server", font=("Arial", 16))
-    label.pack(pady=10)
-
-    pin_label = tk.Label(window, text="Current PIN: " + get_current_pin())
-    pin_label.pack(pady=5)
-
-    btn1 = tk.Button(window, text="Start Server",
-                     command=lambda: threading.Thread(target=start_server).start(),
-                     width=20)
-    btn1.pack(pady=5)
-
-    btn2 = tk.Button(window, text="Connect Phone",
-                     command=show_qr, width=20)
-    btn2.pack(pady=5)
-
-    btn3 = tk.Button(window, text="Change PIN",
-                     command=change_pin, width=20)
-    btn3.pack(pady=5)
-
-    window.mainloop()
-
 # ---------------- MAIN ----------------
 if __name__ == "__main__":
-    get_or_create_pin()  # ensure PIN exists
-    launch_gui()
+    get_or_create_pin()
+    print("Server running... ✅")
+    print("Current PIN:", get_current_pin())
+
+    change = input("Do you want to change the PIN? (y/n): ").strip().lower()
+    if change == "y":
+        change_pin()
+
+    show_qr()
+    start_server()
