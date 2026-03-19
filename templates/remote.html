@@ -14,6 +14,7 @@
 <div class="buttons">
     <button onclick="sendClick('left')">Left Click</button>
     <button onclick="sendClick('right')">Right Click</button>
+    <button onclick="sendKey('backspace')">⌫ Delete</button>
 </div>
 
 <input id="keyboardInput" placeholder="Type text here...">
@@ -28,8 +29,6 @@
     <button onclick="sendKey('left')">←</button>
     <button onclick="sendKey('down')">↓</button>
     <button onclick="sendKey('right')">→</button>
-
-    <button onclick="sendKey('backspace')">⌫</button>
 </div>
 
 <script src="/static/socket.io.min.js"></script>
