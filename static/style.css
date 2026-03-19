@@ -1,55 +1,7 @@
-body {
-    margin:0;
-    background:#1e1e1e;
-    color:white;
-    font-family:Arial;
-    display:flex;
-    flex-direction:column;
-    height:100vh;
-}
-
-header {
-    text-align:center;
-    padding:15px;
-    background:#111;
-    font-size:20px;
-}
-
-#touchpad {
-    flex:1;
-    background:#2e2e2e;
-    margin:10px;
-    border-radius:15px;
-    touch-action:none;
-}
-
-.buttons {
-    display:flex;
-    gap:10px;
-    padding:10px;
-}
-
-button {
-    flex:1;
-    padding:15px;
-    font-size:16px;
-    border:none;
-    border-radius:10px;
-    background:#4CAF50;
-    color:white;
-}
-
-.keyboard {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    padding:10px;
-}
-
-input {
-    margin:10px;
-    padding:12px;
-    border-radius:10px;
-    border:none;
-    font-size:16px;
-}
+body {margin:0; font-family:Arial; background:#1e1e1e; color:white; display:flex; flex-direction:column; height:100vh;}
+header {text-align:center; padding:15px; background:#111; font-size:20px;}
+#touchpad {flex:1; background:#2e2e2e; margin:10px; border-radius:15px; touch-action:none;}
+.buttons {display:flex; gap:10px; padding:10px;}
+button {flex:1; padding:15px; font-size:16px; border:none; border-radius:10px; background:#4CAF50; color:white;}
+.keyboard {display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:10px;}
+input {margin:10px; padding:12px; border-radius:10px; border:none; font-size:16px;}
